@@ -13,6 +13,8 @@ class Ball(pygame.sprite.Sprite):
         self.rect.centery = HEIGHT//2
         self.speed_x = 10
         self.speed_y = 10
+        self.score=0
+        self.lives=5
     
     def update(self):
         self.rect.y = self.rect.y - self.speed_y
