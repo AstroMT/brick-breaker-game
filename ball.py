@@ -11,8 +11,8 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = WIDTH//2
         self.rect.centery = HEIGHT//2
-        self.speed_x = 10
-        self.speed_y = 10
+        self.speed_x = 8
+        self.speed_y = 8
         self.score=0
         self.lives=5
     

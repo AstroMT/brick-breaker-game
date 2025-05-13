@@ -11,6 +11,11 @@ HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Brick Smash Game")
 
+
+gameover_sound = pygame.mixer.Sound("C:/Users/Naras/OneDrive/Desktop/New folder/Python Games/nano_game/game_over.mp3")
+win_sound = pygame.mixer.Sound("C:/Users/Naras/OneDrive/Desktop/New folder/Python Games/nano_game/game_win.mp3")
+
+
 paddle_group = pygame.sprite.Group()
 ball_group = pygame.sprite.Group()
 bricks_group = pygame.sprite.Group()
@@ -44,7 +49,7 @@ for row in range(0, num_rows):
 font = pygame.font.Font(None, 36)
 
 
-
+gameover = False
 gameloop = True
 while gameloop:
     screen.fill("black")
@@ -79,6 +84,29 @@ while gameloop:
     
     if ball.rect.colliderect(paddle.rect):
        ball.speed_y *= -1
+
+    if len(bricks_group) == 0 or ball.score >= 490:
+        screen.fill("black")
+        win_sound.play()
+        gameover_text = font.render("Congratulations! You Win!", True, "green")
+        gameover_textpos = gameover_text.get_rect(center = (WIDTH//2, HEIGHT//2))
+        screen.blit(gameover_text, gameover_textpos)
+        gameover = True
+        pygame.display.update()
+        pygame.time.delay(2000)
+        gameloop = False
+
+    if ball.rect.bottom >= HEIGHT:
+        screen.fill("black")
+        gameover_sound.play()
+        gameover_text = font.render("Hit the Ground! Game Over...", True, (255, 255, 255))
+        gameover_textpos = gameover_text.get_rect(center = (WIDTH//2, HEIGHT//2))
+        screen.blit(gameover_text, gameover_textpos)
+        gameover = True
+        pygame.display.update()
+        pygame.time.delay(2000)
+        gameloop = False
+
 
 
     pygame.display.flip()
